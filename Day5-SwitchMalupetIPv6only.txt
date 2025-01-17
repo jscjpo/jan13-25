@@ -310,7 +310,6 @@ Office: RootBridge = TAAS, 2ndRootBridge = BABA:
 32768 = bobo, tanga, gaggo naka upo
 24576 = qualified, certified, skilled, may yabang
 28672 = super drug addict/bangag
-
 TAAS:/d1       32786 --> 24576
 Config t
 spanning-tree mode pvst

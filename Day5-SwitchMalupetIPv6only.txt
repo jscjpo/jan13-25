@@ -347,7 +347,7 @@ spanning-tree Mode Rapid-pvst
 do sh spanning-tree vlan 1
 configure 802.1w/RapidSTP:
 
-TAAS/d1: RootBridge: laspagin si Wonderwoman
+TAAS/d1 (must edit ports): RootBridge: laspagin si Wonderwoman
 config t
 spanning-tree Mode Rapid-pvst
 spanning-tree BackBoneFast

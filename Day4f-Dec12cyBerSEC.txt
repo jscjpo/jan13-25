@@ -931,6 +931,104 @@ HomeWork for the Hardest Day in CCNA:
 CSr, linuxdocker, pythondocker, Postman: RestApi.
 
 
+!-------------- My afternoon notes
+
+
+
+REAL WORLD SKILLS: SITE TO SITE VPN TUNNEL
+vpnPH 
+Step 1: prepare FWvpnPH
+@edge
+CONFIG T
+IP ROUTE 0.0.0.0  0.0.0.0 208.8.8.2
+no logging console
+Int Gi 2
+no shut
+ip add 192.168.102.11 255.255.255.0
+
+ip name-server 8.8.8.8 1.1.1.1
+ip domain-lookup
+int gi 1
+no shut
+ip add 208.8.8.11 255.255.255.0
+int gi 3
+no shut
+ip add 10.10.10.1 255.255.255.0
+do sh ip int brief
+
+
+
+
+
+------
+int gi 1
+no shut
+ip add 208.8.8.12 255.255.255.0
+int gi 3
+no shut
+ip add 20.20.8.12 255.255.255.0
+
+
+sudo su
+bldg1inPINAS:
+sudo su
+ifconfig eth0 10.10.10.10 netmask 255.255.255.0 up
+route add default gw 10.10.10.1
+ping 10.10.10.1
+
+sudo su
+bldg1AinPINAS:
+sudo su
+ifconfig eth0 11.11.11.11 netmask 255.255.255.0 up
+route add default gw 10.10.10.1
+ping 10.10.10.1
+
+
+bldg2inJPN:
+sudo su
+ifconfig eth0 20.20.20.20 netmask 255.255.255.0 up
+route add default gw 20.20.20.1
+ping 20.20.20.1
+
+ReverseProxy/NATPortMapping:
+config t
+access-list 7 permit any
+ip nat inside source static tcp 10.10.10.10 80 208.8.8.101 8080
+ip nat inside source static tcp 10.10.10.10 443 208.8.8.101 8443
+ip nat inside source static tcp 10.10.10.11 22 208.8.8.101 222
+IP nat inside source list 7 int gi 1 Overload
+
+
+-----------------
+
+
+Step 1: prepare FWvpnJP
+@edge
+CONFIG T
+IP ROUTE 0.0.0.0  0.0.0.0 208.8.8.2
+no logging console
+Int Gi 2
+no shut
+ip add 192.168.102.12 255.255.255.0
+
+ip name-server 8.8.8.8 1.1.1.1
+ip domain-lookup
+int gi 1
+no shut
+ip add 208.8.8.12 255.255.255.0
+int gi 3
+no shut
+ip add 20.20.20.1 255.255.255.0
+do sh ip int brief
+
+-------------
+
+
+
+
+
+
+
 
 
 

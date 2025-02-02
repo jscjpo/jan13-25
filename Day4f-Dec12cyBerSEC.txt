@@ -42,8 +42,8 @@ no logging console
 Int Gi 2
 no shut
 ip add 192.168.102.11 255.255.255.0
-@telnet use secureCRT: telnet 192.168.108.5
-in SEcureCRT, Paste This:
+!@telnet use secureCRT: telnet 192.168.108.5
+!in SEcureCRT, Paste This:
 config t
 IP ROUTE 0.0.0.0  0.0.0.0 208.8.8.2
 ip name-server 8.8.8.8 1.1.1.1
@@ -470,16 +470,27 @@ show ntp associations
 GIVE IP ADDRESS TO LINUX BLDGONE AND BLDGTWO:
 sudo su
 bldg1:
-ifconfig eth0 192.168.103.11 netmask 255.255.255.0 up
+sudo su
+ifconfig eth0 192.168.103.21 netmask 255.255.255.0 up
 route add default gw 192.168.103.8
 bldg2:
-ifconfig eth0 192.168.103.12 netmask 255.255.255.0 up
+sudo su
+ifconfig eth0 192.168.103.22 netmask 255.255.255.0 up
+route add default gw 192.168.103.8
+bldg3:
+sudo su
+ifconfig eth0 192.168.103.23 netmask 255.255.255.0 up
 route add default gw 192.168.103.8
 ping 8.8.8.8   1.1.1.1  4.2.2.2  8.8.4.4
 
-TASK9: NAT: NETWORK ADDRESS TRANSLATION SERVICE:
+TASK9: NAT: NETWORK ADDRESS TRANSLATION SERVICE: / ITAGO ANG TOTOONG IP
 nat, proxy, hotspot, tethering, = PENGE INTERNET
 Give Internet to your Entire building USING CISCO:
+insideLocal      outsideLocal
+192.168.103.21   208.8.51
+192.168.103.22   208.8.52
+192.168.103.23   Bahala na Si BaTMAN
+
 
 network address translation: NAT GIVE internet to 
 entire companies/buildings.
@@ -491,7 +502,7 @@ ping 10.10.10.11
 
 linBld3:
 sudo su
-ifconfig eth0 192.168.103.100 netmask 255.255.255.0 up
+ifconfig eth0 192.168.102.23 netmask 255.255.255.0 up
 route add default gw 192.168.103.11
 ping 192.168.103.11
 
@@ -507,11 +518,11 @@ ip nat INSIDE
 int gi 3
 ip nat INSIDE
 no access-list 8
-access-list 8 permit 10.10.10.0 0.0.0.255
+access-list 8 permit 192.168.102.0 0.0.0.255
 access-list 8 permit 192.168.103.0 0.0.0.255
 ip nat inside source list 8 interface Gi 1 overload
-ip nat inside source static 10.10.10.100 208.8.8.69
-ip nat inside source static 192.168.103.100 208.8.8.88
+ip nat inside source static 10.10.10.21 208.8.8.51
+ip nat inside source static 192.168.103.22 208.8.8.52
 end
 FW-VPN-PH#show ip nat translations 
 Pro  Inside global         Inside local          Outside local         Outside global
